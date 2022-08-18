@@ -14,7 +14,6 @@ import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAu
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
 //    private ConferenceUserDetailsContextMapper ctxMapper;
     private MyUserDetailsContextMapper ctxMapper;
