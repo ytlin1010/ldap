@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+    xmlns:sec="https://www.thymleaf.org/thymleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Goods Manager</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    Welcome <b><span sec:authentication="name">Username</span></b>
+    &nbsp;&nbsp; <span sec:authentication="principal.authorities">Roles</span>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+
+<h1>Goods Manager</h1>
+<table width="50%">
+    <a sec:authorize="hasAnyAuthority('ADMIN','EDITOR')" th:href ="@{/new}"> new product</a>
+    <thead> <th>id</th>
+    <th>name</th>
+    <th>remark</th>
+    <th>createdTime</th>
+    <th sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">operation</th>
+    </thead> <tbody> <tr th:each="g:${goodsList}">
+    <td th:text="${g.id}">1</td>
+    <td th:text="${g.name}">MySQL</td>
+    <td th:text="${g.remark}">DBMS</td>
+    <td th:text="${#dates.format(g.createdTime, 'yyyy/MM/dd HH:mm')}">2020/07/03</td>
+    <td sec:authorize="hasAnyAuthority('ADMIN','EDITOR')">
+        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/delete/{id}(id=${g.id})}">delete</a>  &nbsp; &nbsp; &nbsp;
+        <a  th:href="@{/edit/{id}(id=${g.id})}">update</a></td>
+</tr> </tbody></table>
+</body>
+</html>

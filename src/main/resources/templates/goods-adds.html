@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:sec="https://www.thymleaf.org/thymleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    Welcome <span sec:authentication="name">Username</span>
+    &nbsp;&nbsp; <span sec:authentication="principal.authorities">Roles</span>
+</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<h1>the goods add pages</h1>
+<form th:action="@{/doSaveGoods}" method="post">
+    <ul> <li>name</li>
+        <li><input type="text" name="name"></li>
+        <li>remark</li>
+        <li><textarea rows="3" cols="50" name="remark"></textarea></li>
+        <li><input type="submit" value="Save Goods"></li>
+    </ul> </form>
+</body>
+</html>
